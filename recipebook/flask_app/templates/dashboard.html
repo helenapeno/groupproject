@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        table {
+            width: 45%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .actions a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/logout">Logout</a>
+        <a href="/new_recipe" style="float: right;">New Recipe</a>
+        <h1>RecipeBook</h1>
+        <h3>Welcome, {{user.first_name}}</h3>
+    </header>
+    <div class="container">
+        <div class="browse-recipes">
+            <h2>Browse Recipes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recipe Name</th>
+                        <th>Type of Cuisine</th>
+                        <th>Creator</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in recipes %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>{{recipe.type}}</td>
+                        <td>{{recipe.creator.first_name}}</td>
+                        <td class="actions">
+                            <a href="/recipe/{{recipe.id}}/view">View</a>
+                            <a href="#">Save</a>
+                            <a href="/recipe/{{recipe.id}}/delete">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="saved-recipes">
+            <h2>Saved Recipes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recipe Name</th>
+                        <th>Type of Cuisine</th>
+                        <th>Creator</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                        {% for recipe in saved_recipes %}
+                        <tr>
+                            <td>{{recipe.name}}</td>
+                            <td>{{recipe.type}}</td>
+                            <td>{{recipe.creator.first_name}}</td>
+                            <td class="actions">
+                                <a href="/recipe/{{recipe.id}}/view">View</a>
+                                <a href="/recipe/{{recipe.id}}/edit">Edit</a>
+                                <a href="/recipe/{{recipe.id}}/delete">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

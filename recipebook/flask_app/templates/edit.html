@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Recipe</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .field {
+            width: 45%;
+        }
+        .field h2 {
+            text-align: center;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+        }
+        .item input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="field">
+        <h2>Ingredients</h2>
+        <a href="/dashboard" style="position: absolute; top: 10px; left: 100px;">Return to Dashboard</a>
+        <a href="/logout" style="position: absolute; top: 10px; right: 10px;">Logout</a>
+        <div style="position: absolute; top: 10px; right: 10px;"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ingredient.ingredient}}</td>
+                    <td>
+                        <form action="/update_ingredient/{{ingredient.id}}" method="POST">
+                            <input type="text" name="ingredient" value="{{ingredient.ingredient}}">
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/delete_ingredient/{{ingredient.id}}" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div class="field">
+            <h2>Ingredients</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instructions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instruction in instructions %}
+                    <tr>
+                        <td>{{instruction.instruction}}</td>
+    <td>
+        <form action="/update_instruction/{{instruction.id}}" method="POST">
+            <input type="text" name="instruction" value="{{instruction.instruction}}">
+            <button type="submit">Update</button>
+        </form>
+        <form action="/delete_instruction/{{instruction.id}}" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+    </td>
+    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+</body>
+</html>

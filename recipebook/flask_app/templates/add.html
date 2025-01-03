@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Recipe</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .column {
+            width: 45%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Recipe</h1>
+    <form action="/add_recipe" method="POST">
+        <div class="container">
+            <div class="column">
+                <h2>Ingredients</h2>
+                <div class="form-group">
+                    <label for="name">Recipe Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type of Cuisine:</label>
+                    <input type="text" id="type" name="type" required>
+                </div>
+                <div class="form-group">
+                    <div id="ingredients-list">
+                        <div class="form-group">
+                            <label for="ingredients">Ingredient 1:</label>
+                            <input type="text" id="ingredients" name="ingredients[]" required>
+                        </div>
+                    </div>
+                    <button type="button" onclick="add_ingredient()">Add Another Ingredient</button>
+                    <script>
+                        var ingredientCount = 1;
+
+                        function add_ingredient() {
+                            ingredientCount++;
+                            const newIngredient = document.createElement('div');
+                            newIngredient.classList.add('form-group');
+                            newIngredient.innerHTML = `
+                                <label for="ingredient_${ingredientCount}">Ingredient ${ingredientCount}:</label>
+                                <input type="text" id="ingredient_${ingredientCount}" name="ingredients[]" required>
+                            `;
+                            document.getElementById('ingredients-list').appendChild(newIngredient);
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Instructions</h2>
+                <div id="instruction-list">
+                    <div class="form-group">
+                        <label for="instruction_1">Instruction 1:</label>
+                        <input type="text" id="instruction_1" name="instructions[]" required>
+                    </div>
+                </div>
+                <button type="button" onclick="add_instruction()">Add Another Instruction</button>
+                <script>
+                    var instructionCount = 1;
+
+                    function add_instruction() {
+                        instructionCount++;
+                        const newInstruction = document.createElement('div');
+                        newInstruction.classList.add('form-group');
+                        newInstruction.innerHTML = `
+                            <label for="instruction_${instructionCount}">Instruction ${instructionCount}:</label>
+                            <input type="text" id="instruction_${instructionCount}" name="instructions[]" required>
+                        `;
+                        document.getElementById('instruction-list').appendChild(newInstruction);
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit">Add Recipe</button>
+        </div>
+    </form>
+</body>
+</html>
